@@ -11,8 +11,8 @@ x.set_seed()
 # print(x.generate(["T"]))
 tree = x.generate_tree("T")
 
-from anytree import RenderTree, AsciiStyle
-print(RenderTree(tree, style=AsciiStyle()).by_attr())
+from anytree import RenderTree, ContStyle
+print(RenderTree(tree, style=ContStyle()))
 
 print Grammar.generate_string(tree)
 
