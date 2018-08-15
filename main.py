@@ -2,18 +2,23 @@
 # -*- coding: UTF-8 -*-
 
 from parser.grammar import Grammar
+from parser.production_constraint import Production_Constraint
 from symbols.rules import Symbols_Rules
 
-x = Grammar()
+g = Grammar()
+g.load_grammar("rules.txt")
+
+c = Production_Constraint("Img", symbol="T", depth=0)
+
+g.add_production_constraint(c)
+tree = g.generate_tree("T")
+
 r = Symbols_Rules()
-x.load_grammar("rules.txt")
-x.set_seed()
-# print(x.generate(["T"]))
-tree = x.generate_tree("T")
+# print(g.generate(["T"]))
 
 from anytree import RenderTree, ContStyle
 print(RenderTree(tree, style=ContStyle()))
 
 print Grammar.generate_string(tree)
 
-r.load_configurations("symbols-config")
+r.load_symbols_configurations("config/symbols")

@@ -8,7 +8,7 @@ class Symbols_Rules():
     def __init__(self):
         self.allowed_symbols = {}
 
-    def load_configurations(self, folder):
+    def load_symbols_configurations(self, folder):
 
         for filename in os.listdir(folder):
             if ".yml" in filename:

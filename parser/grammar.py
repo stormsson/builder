@@ -29,12 +29,15 @@ class Grammar:
         return str
 
 
-
-
-    def __init__(self):
+    def __init__(self, seed=None):
         self.result = ""
+
+        # TODO: improve this
+        self.production_constraints = []
         self.rules = []
         self.raw_rules = []
+
+        self.set_seed(seed)
 
         return
 
@@ -43,6 +46,18 @@ class Grammar:
 
     def reset_seed(self):
         random.seed(None)
+
+    def set_production_constraints(self, production_constraints):
+        self.production_constraints = production_constraints
+
+    def reset_production_constraints(self):
+        self.production_constraints = []
+
+
+    def add_production_constraint(self, production_constraint):
+        self.production_constraints.append(production_constraint)
+
+
 
     """
     loads a grammar rules file
@@ -59,8 +74,8 @@ class Grammar:
         return
 
     """
-    transforms a production defined in the rules as S[min-max] to
-    a concatenated OR production without range
+    transforms a production defined in the rules as Symbol[min-max] to
+    a concatenated OR production without the range syntax
     Ex:
     C[1-3] is transformed to: C | C C | C C C
     """
@@ -81,6 +96,17 @@ class Grammar:
         else:
             return production
 
+    """
+    when a rule is found, this function applies the constraints to the production.
+    """
+    def _apply_constraints_to_production(self, production, symbol, depth, index):
+        if len(self.production_constraints):
+            for c in self.production_constraints:
+                if c.match(symbol, depth, index):
+                    production = [ c.production ]
+                    break
+
+        return production
 
     """
     after a rule for a production is found,
@@ -106,29 +132,30 @@ class Grammar:
     given a symbol, generate the subtree corresponding to it.
     index/depth are used to allow custom constraints per level/position
     """
-    def generate_tree(self, symbol, index=0, depth=0):
+    def generate_tree(self, symbol,  depth=0, index=0):
         # symbol, amount = self._parse_ranged_production(symbol)
 
         replaced = False
         for rule in self.rules:
             if symbol == rule["symbol"]:
 
-                root = Node(symbol, index=index, type=symbol, depth=depth)
+                root = Node(symbol, type=symbol, depth=depth, index=index)
 
                 # random_index = randint(0, len(rule["production"])-1)
                 # selected_item = rule["production"][random_index]
 
                 # selected_item = self._parse_ranged_production(selected_item)
-                selected_production = self._select_production(rule["production"])
+                selected_production = self._apply_constraints_to_production(rule["production"], symbol, depth, index)
+                selected_production = self._select_production(selected_production)
                 child_index = 0
                 for sub_grammar in selected_production:
-                    child = self.generate_tree(sub_grammar, index=child_index, depth=depth+1)
+                    child = self.generate_tree(sub_grammar, depth=depth+1,  index=child_index)
                     child.parent = root
                     child_index+=1
 
                 replaced = True
 
         if not replaced:
-            root = Node(symbol, index=index, type=symbol)
+            root = Node(symbol, type=symbol, depth=depth, index=index)
 
         return root

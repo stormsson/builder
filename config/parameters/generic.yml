@@ -1,0 +1,5 @@
+font-size: [ small, medium, large ]
+font-style: [ normal, italic ]
+font-weight: [ normal, bold ]
+v-align: [ top, middle, bottom ]
+padding: [ 0px, 10px, 20px ]
