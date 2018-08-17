@@ -3,33 +3,15 @@
 
 from random import randint
 import random
-import string
 from anytree import Node
 import re
 
+from parser.tree_builder import Tree_Builder
+
 class Grammar:
 
-    @staticmethod
-    def generate_string(tree):
-        str = "%s(#)" % tree.name
 
-        if not tree.is_leaf:
-            substrings = []
-            for child in tree.children:
-                substrings.append(Grammar.generate_string(child))
-
-            try:
-                substrings = " + ".join(substrings)
-            except Exception as e:
-                print(substrings)
-                raise e
-        else:
-            substrings =""
-        str = string.replace(str, "#", substrings)
-        return str
-
-
-    def __init__(self, seed=None):
+    def __init__(self, grammar_path, seed=None):
         self.result = ""
 
         # TODO: improve this
@@ -37,15 +19,9 @@ class Grammar:
         self.rules = []
         self.raw_rules = []
 
-        self.set_seed(seed)
+        self._load_grammar(grammar_path)
 
-        return
-
-    def set_seed(self, seed=None):
-        random.seed(seed)
-
-    def reset_seed(self):
-        random.seed(None)
+        self.tree_builder = Tree_Builder(seed)
 
     def set_production_constraints(self, production_constraints):
         self.production_constraints = production_constraints
@@ -58,11 +34,10 @@ class Grammar:
         self.production_constraints.append(production_constraint)
 
 
-
     """
     loads a grammar rules file
     """
-    def load_grammar(self, path):
+    def _load_grammar(self, path):
         with open(path, "r") as grammar_file:
             for line in grammar_file:
                 self.raw_rules.append(line)
@@ -133,13 +108,12 @@ class Grammar:
     index/depth are used to allow custom constraints per level/position
     """
     def generate_tree(self, symbol,  depth=0, index=0):
-        # symbol, amount = self._parse_ranged_production(symbol)
 
         replaced = False
         for rule in self.rules:
             if symbol == rule["symbol"]:
 
-                root = Node(symbol, type=symbol, depth=depth, index=index)
+                root = Node(symbol, symbol=symbol, depth=depth, index=index)
 
                 # random_index = randint(0, len(rule["production"])-1)
                 # selected_item = rule["production"][random_index]
@@ -156,6 +130,6 @@ class Grammar:
                 replaced = True
 
         if not replaced:
-            root = Node(symbol, type=symbol, depth=depth, index=index)
+            root = Node(symbol, symbol=symbol, depth=depth, index=index)
 
         return root

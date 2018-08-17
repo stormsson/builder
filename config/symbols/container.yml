@@ -1,4 +1,9 @@
 symbol: C
 name: container
 final: false
-
+allowed_parameters:
+  - font-size
+  - font-style
+  - font-weight
+  - v-align
+  - padding

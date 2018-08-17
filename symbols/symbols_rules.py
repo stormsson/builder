@@ -5,8 +5,11 @@ import os
 import yaml
 
 class Symbols_Rules():
-    def __init__(self):
+    def __init__(self, symbols_configuration_folder=None):
         self.allowed_symbols = {}
+
+        if symbols_configuration_folder:
+            self.load_symbols_configurations(symbols_configuration_folder)
 
     def load_symbols_configurations(self, folder):
 

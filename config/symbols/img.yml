@@ -1,3 +1,5 @@
 symbol: Img
 name: img
 final: True
+allowed_parameters:
+  - img-proportions

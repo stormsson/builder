@@ -1,3 +1,7 @@
 symbol: Txt
 name: text
 final: True
+allowed_parameters:
+  - font-size
+  - font-style
+  - font-weight
