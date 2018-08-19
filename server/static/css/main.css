@@ -1,0 +1,71 @@
+h1 {
+    color: #f00;
+}
+
+.p-fsize-small {
+    font-size: small;
+}
+
+.p-fsize-medium {
+    font-size: medium;
+}
+
+.p-fsize-large {
+    font-size: large;
+}
+
+.p-fstyle-normal {
+    font-style: normal;
+}
+
+.p-fstyle-italic {
+    font-style: italic;
+}
+
+.p-fw-normal {
+    font-weight: normal;
+}
+
+.p-fw-bold {
+    font-weight: bold;
+}
+
+.p-pad-0 {
+    padding: 0px
+}
+
+.p-pad-10 {
+    padding: 10px
+}
+
+.p-pad-20 {
+    padding: 20px
+}
+
+.img-squared {
+    width: 800px;
+    height: 800px;
+}
+
+.img-portrait {
+    width: 450;
+    height: 800;
+}
+
+.img-landscape {
+    width: 800;
+    height: 450;
+}
+
+div {
+    border:1px solid #ccc;
+}
+
+.node-c {
+    float:left;
+    width: 100%;
+}
+
+.node-sc {
+    float:left;
+}

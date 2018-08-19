@@ -10,7 +10,6 @@ from parser.tree_builder import Tree_Builder
 
 class Grammar:
 
-
     def __init__(self, grammar_path, seed=None):
         self.result = ""
 

@@ -30,8 +30,6 @@ print Tree_Builder.generate_string(tree)
 
 
 
-
-
 from anytree import RenderTree, ContStyle
 print(RenderTree(tree, style=ContStyle()))
 
