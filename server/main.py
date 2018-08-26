@@ -22,6 +22,7 @@ sys.path.insert(0, parent_dir)
 
 
 from parser.grammar import Grammar
+from parser.production_constraint import Production_Constraint
 from parser.parameters_generator import Parameters_Generator
 from parser.tree_builder import Tree_Builder
 from symbols.symbols_rules import Symbols_Rules
@@ -52,7 +53,16 @@ def generateTree(seed):
     symbols_rules = Symbols_Rules(symbols_configuration_folder="config/symbols")
     parameters_generator = Parameters_Generator("config/parameters", symbols_rules, g.tree_builder.get_seed())
 
-    tree = g.generate_tree("T")
+
+    c1 = Production_Constraint("Img", symbol="Sc", index=[0, 1, 0])
+    tb = Tree_Builder(seed=1)
+
+
+    # add production constraints to grammar
+    # g.add_production_constraint(c1)
+
+
+    tree = tb.generate_tree(g, "T")
     tree = parameters_generator.apply_parameters(tree)
 
     tpl = generateTemplate(tree)

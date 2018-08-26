@@ -6,4 +6,4 @@ allowed_parameters:
   - font-style
   - font-weight
   - v-align
-  - padding
+  - flex-dir

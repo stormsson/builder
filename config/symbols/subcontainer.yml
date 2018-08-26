@@ -4,5 +4,5 @@ allowed_parameters:
   - font-size
   - font-style
   - font-weight
-  - v-align
+  - align-items
   - padding

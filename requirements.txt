@@ -1,3 +1,4 @@
 anytree
 PyYAML
 flask
+nose

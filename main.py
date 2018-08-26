@@ -23,7 +23,9 @@ symbols_rules = Symbols_Rules(symbols_configuration_folder="config/symbols")
 # create parameters generator
 parameters_generator = Parameters_Generator("config/parameters", symbols_rules, g.tree_builder.get_seed())
 
-tree = g.generate_tree("T")
+# tree = g.generate_tree("T")
+tb = Tree_Builder(seed=1)
+tree = tb.generate_tree(g, "T")
 tree = parameters_generator.apply_parameters(tree)
 
 print Tree_Builder.generate_string(tree)

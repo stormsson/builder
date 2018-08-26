@@ -43,29 +43,42 @@ h1 {
 }
 
 .img-squared {
-    width: 800px;
-    height: 800px;
+    width: 350px;
+    height: 350px;
 }
 
 .img-portrait {
-    width: 450;
-    height: 800;
+    width: 300px;
+    height: 400px;
 }
 
 .img-landscape {
-    width: 800;
-    height: 450;
+    width: 400px;
+    height: 300px;
+}
+
+.p-aitem-start {
+    align-items: flex-start;
+}
+
+.p-aitem-center {
+    align-items: flex-center;
+}
+
+.p-aitem-end {
+    align-items: flex-end;
 }
 
 div {
-    border:1px solid #ccc;
+   /* border:1px solid #ccc; */
 }
 
 .node-c {
-    float:left;
-    width: 100%;
+    display: flex;
 }
 
 .node-sc {
-    float:left;
+    flex-grow: 1;
+    border: 1px solid #ccc;
 }
+
