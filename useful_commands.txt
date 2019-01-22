@@ -1,0 +1,5 @@
+build container
+docker build -t py_images docker
+
+run container
+docker run --rm -v "${PWD}:/var/project" py_images [CMD]

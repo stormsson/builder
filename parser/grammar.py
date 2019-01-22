@@ -49,15 +49,16 @@ class Grammar:
 
     """
     transforms a production defined in the rules as Symbol[min-max] to
-    a concatenated OR production without the range syntax
+    a concatenated OR production without the range syntax and selects
+    one of the possible productions
+
     Ex:
-    C[1-3] is transformed to: C | C C | C C C
+    C[1-3] is transformed to: C | C C | C C C and only one of the productions is selected
     """
     def _parse_ranged_production(self, production):
         regexp_qty_pattern="(?P<symbol>.*?)\[(?P<from>\d+)\-(?P<to>\d+)\]"
         match = re.search(regexp_qty_pattern, production)
 
-        repetitions = 1
         if match:
             symbol = match.group("symbol")
             range_from = int(match.group("from"))

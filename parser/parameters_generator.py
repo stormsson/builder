@@ -31,7 +31,7 @@ class Parameters_Generator():
                     for parameter in data:
                         self.allowed_parameters[parameter] = data[parameter]
 
-    def _apply_parameters_to_node(self, node, depth, index):
+    def _apply_parameters_to_node(self, node, index):
         # if the node doesn't have the parameters container create it
         try:
             p = node.parameters
@@ -44,6 +44,8 @@ class Parameters_Generator():
         except KeyError as e:
             #symbol does not have allowed_parameters
             return
+
+        depth = len(index) -1
 
 
         for parameter in node_allowed_parameters:
@@ -70,13 +72,14 @@ class Parameters_Generator():
 
 
 
-    def apply_parameters(self, root_node, depth=0, index=0):
+    def apply_parameters(self, root_node, index=[0]):
 
-        self._apply_parameters_to_node(root_node, depth, index)
+
+        self._apply_parameters_to_node(root_node, index)
 
         child_index = 0
         for c in root_node.children:
-            self.apply_parameters(c, depth+1, child_index)
+            self.apply_parameters(c, index + [child_index])
             child_index+= 1
 
         return root_node

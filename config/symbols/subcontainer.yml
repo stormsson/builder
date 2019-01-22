@@ -5,4 +5,3 @@ allowed_parameters:
   - font-style
   - font-weight
   - align-items
-  - padding

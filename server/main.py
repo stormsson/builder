@@ -55,7 +55,7 @@ def generateTree(seed):
 
 
     c1 = Production_Constraint("Img", symbol="Sc", index=[0, 1, 0])
-    tb = Tree_Builder(seed=1)
+    tb = Tree_Builder(seed=seed)
 
 
     # add production constraints to grammar

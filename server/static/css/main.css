@@ -75,10 +75,11 @@ div {
 
 .node-c {
     display: flex;
+    border: 1px solid #ccc;
 }
 
 .node-sc {
     flex-grow: 1;
-    border: 1px solid #ccc;
+    padding: inherit;
 }
 

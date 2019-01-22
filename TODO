@@ -1,0 +1,90 @@
+Simboli:
+ ✔ Assegnare parametri di configurabilità CSS ai simboli @created(18-08-20 00:13) @done (18-08-26 17:18)
+ ✔ Creare snippet HTML per simboli @done (18-08-26 17:18)
+ ☐ aggiungere simbolo menu @high
+ ☐ aggiungere simbolo slider @high
+
+
+
+Grammar:
+ ✔ Spostare la logica per produrre l'albero da Grammar a Tree_Builder @created(18-08-20 00:20) @high @done (18-08-26 12:51)
+ ☐ caricare i parametri consentiti ai simboli @created(18-08-20 00:11)
+ ☐ valutare se consentire la creazione di righe multiple per uno stesso contenitore
+ Consentirebbe di avere template in cui poter creare colonne alte "più righe"
+ ☐ Creare i test @high
+ ☐ Aggiungere gestione della probabilità di produzione di un nodo ( es: C(0.3) | CC(0.7) ) @high
+
+
+Tree Builder:
+    ☐ Creare un metodo che, a partire da un albero, generi una struttura ordinata di parametri (per genetic algo)
+
+Grammar Parameters:
+    Dopo che è stato generato un albero, ogni simbolo dispone di parametri generabili a caso (es: allineamento, font,etc)
+
+ ✔ creare un parametrizzatore: IN: albero, OUT: struttura di parametri per ogni nodo @done (18-08-20 00:17)
+     ✔  il parametrizzatore legge da un file (?) l'elenco dei parametri disponibili, con i valori possibili @done (18-08-20 00:17)
+     ✔  config/symbols contiene l'elenco di parametri usabili da ogni simbolo. leggendo i file yml, e' possibile sapere quali parametri sono usabili da un simbolo @done (18-08-20 00:17)
+
+     ☐ Creare parametro Palettes
+     per schiarire/scurire colori: https://stackoverflow.com/questions/6615002/given-an-rgb-value-how-do-i-create-a-tint-or-shade#6615053
+         ☐ un file palettes.yml dedicato associa un nome ad un insieme di colori in HEX (5 ?)
+         ☐ il parameters generator sceglie una palette
+         ☐ la selezione di un colore consiste nella scelta di uno dei colori tra quelli della palette preselezionata
+
+     ☐ Aggiungere gestione della probabilità di assegnazione di un parametro @high
+
+Constraints:
+    Un oggetto constraint è un insieme di regole che devono essere rispettate da un determinato elemento.
+    ☐ Creare un generator che a partire dalle constraints in formato JSON (provenienti dalla ux), produca delle constraints oggetto @high
+    ☐ Verificare perche' le production alterano il seed (o comunque l'output di chiamate successive a randint)  (v. seed  1990690846220438522 ) @critical
+
+    Production_Constraints:
+    Una Production_Constraint impone la produzione di un elemento e può essere
+        ✔ applicabile ad uno specifico simbolo (considerando quindi profondità/index) @done (18-08-20 00:26)
+            es: il simbolo T deve produrre C C
+
+        ✔ applicabile a tutti i simboli di un certo tipo @done (18-08-20 00:26)
+            es: tutti i simboli C devono produrre 0
+
+        ✔ applicabile ad uno specifico livello di profondità dell'albero @done (18-08-20 00:26)
+            es: tutti i simboli a livello 2 devono produrre Img
+    ☐ Creare i test @high
+
+    Parameter_Constraints:
+    Una ParameterConstraint impone un valore ad un parametro può essere
+        ☐ applicabile ad uno specifico parametro in tutti i simboli di un certo tipo
+        es: tutti i v-align dei simboli C devono essere top
+
+        ☐ applicabile ad uno specifico parametro in un simbolo specifico (considerando quindi profondità/index)
+        es: il v-align del simbolo C(level 2, index 2 ) deve essere top
+
+        ☐ applicabile ad uno specifico parametro in tutti i simboli ad un certo livello di profondità dell'albero
+        es: tutti i v-align dei simboli Img  di livello 2 devono essere top
+    ☐ Creare i test @high
+
+--- ✄ -----------------------
+
+UX:
+    L'interfaccia è composta da una pagina con un numero variabile di "iframe" che si aprono su un albero.
+    La pagina contenitore dispone di un'interfaccia nella quale inserire constraints.
+    Al cambio dei parametri, gli iframe si riaggiornano generando nuovi alberi con le constraints applicate
+    Al click su un "iframe" si apre il template corrispondente, con le constraints applicate, in un'interfaccia di dettaglio.
+
+    ☐ Come passare le constraints agli elementi "iframe" ? @critical @created(18-08-20 00:35)
+
+    ☐ Pagina web che richiede al server un albero, inviandogli delle constraints
+    ☐ la pagina mostra , per ogni nodo, i constraints disponibili
+
+
+Template Generator:
+    Tutto ciò che si occupa di generare l'output finale
+    ☐ Perfezionare la creazione dei template: ora è dentro al server
+        ☐ identificare meglio dove inizia la creazione del template manuale e dove interviene Jinja @high
+        ☐ probabilmente tutti i str.replace non sono una buona soluzione
+    ☐ identificare meglio come gestire i parametri (ora son classi)
+
+Server:
+    ☐ scorporare la logica del server da quella di creazione albero @created(18-08-20 00:35)
+    ☐ esporre come servizio web la stringa di generazione dell'albero @maybe
+
+
