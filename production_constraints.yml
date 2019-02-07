@@ -1,0 +1,6 @@
+constraints:
+  - symbol: T
+    production: Img
+  - symbol: C
+    production: "0"
+    index: [0, 1]

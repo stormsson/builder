@@ -8,7 +8,10 @@ from parser.tree_builder import Tree_Builder
 from symbols.symbols_rules import Symbols_Rules
 
 # create a grammar
-g = Grammar(grammar_path="grammar.txt", seed=1)
+g = Grammar(
+    grammar_path="grammar.txt",
+    constraints_path="production_constraints.yml",
+    seed=1)
 
 # load symbols rules
 symbols_rules = Symbols_Rules(symbols_configuration_folder="config/symbols")
@@ -28,7 +31,7 @@ tb = Tree_Builder(seed=1)
 tree = tb.generate_tree(g, "T")
 tree = parameters_generator.apply_parameters(tree)
 
-print Tree_Builder.generate_string(tree)
+print (Tree_Builder.generate_string(tree))
 
 
 

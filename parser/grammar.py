@@ -5,12 +5,14 @@ from random import randint
 import random
 from anytree import Node
 import re
+import yaml
 
 from parser.tree_builder import Tree_Builder
+from parser.production_constraint import Production_Constraint
 
 class Grammar:
 
-    def __init__(self, grammar_path, seed=None):
+    def __init__(self, grammar_path, constraints_path=None, seed=None):
         self.result = ""
 
         # TODO: improve this
@@ -19,6 +21,9 @@ class Grammar:
         self.raw_rules = []
 
         self._load_grammar(grammar_path)
+
+        if constraints_path:
+            self._load_constraints(constraints_path)
 
         self.tree_builder = Tree_Builder(seed)
 
@@ -45,6 +50,29 @@ class Grammar:
                 value = elems[1]
                 production = [ x.strip() for x in value.split("|") ]
                 self.rules.append({"symbol": symbol, "production": production })
+        return
+
+
+    def _load_constraints(self, path):
+
+        with open(path) as f:
+            # use safe_load instead load
+            data = yaml.safe_load(f)
+            constraints = data["constraints"]
+
+            for c in constraints:
+                self._create_constraint(c)
+        return
+
+    def _create_constraint(self, c):
+        try:
+            index = c["index"]
+        except KeyError as e:
+            index = None
+
+        tmp =  Production_Constraint(c["production"], symbol=c["symbol"], index=index)
+        self.add_production_constraint(tmp)
+
         return
 
     """
