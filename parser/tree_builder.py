@@ -28,10 +28,11 @@ class Tree_Builder():
         str = str.replace( "#", substrings)
         return str
 
-    def __init__(self, seed=None):
+    def __init__(self, grammar, seed=None):
         self.seed = None
         self.set_seed(seed)
         self.rules = None
+        self.grammar = grammar
 
     def set_seed(self, seed=None):
         if not seed:
@@ -47,8 +48,8 @@ class Tree_Builder():
         self.set_seed()
 
 
-    def generate_tree(self, grammar, starting_symbol):
-        self.grammar = grammar
+
+    def generate_tree(self,  starting_symbol):
 
         self.production_constraints = self.grammar.production_constraints
         return self._build_tree(starting_symbol)

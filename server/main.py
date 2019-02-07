@@ -49,7 +49,7 @@ def generateTreeNoParameter():
 @app.route("/<int:seed>")
 def generateTree(seed):
 
-    g = Grammar(grammar_path="grammar.txt", seed=seed)
+    g = Grammar(grammar_path="config/rules/grammar.txt", seed=seed)
     symbols_rules = Symbols_Rules(symbols_configuration_folder="config/symbols")
     parameters_generator = Parameters_Generator("config/parameters", symbols_rules, g.tree_builder.get_seed())
 

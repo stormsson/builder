@@ -25,7 +25,7 @@ class Grammar:
         if constraints_path:
             self._load_constraints(constraints_path)
 
-        self.tree_builder = Tree_Builder(seed)
+        self.tree_builder = Tree_Builder(self, seed)
 
     def set_production_constraints(self, production_constraints):
         self.production_constraints = production_constraints
