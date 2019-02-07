@@ -10,13 +10,13 @@ from anytree import Node
 
 class Tree_Builder():
     @staticmethod
-    def generate_string(tree):
-        str = "%s(#)" % tree.name
+    def generate_string(tree, with_params=False):
+        str = "%s[P](#)" % tree.name
 
         if not tree.is_leaf:
             substrings = []
             for child in tree.children:
-                substrings.append(Tree_Builder.generate_string(child))
+                substrings.append(Tree_Builder.generate_string(child, with_params))
 
             try:
                 substrings = " + ".join(substrings)
@@ -26,6 +26,12 @@ class Tree_Builder():
             substrings =""
 
         str = str.replace( "#", substrings)
+
+        if with_params:
+            str = str.replace("[P]", "["+",".join(tree.parameters)+"]")
+        else:
+            str = str.replace("[P]","")
+
         return str
 
     def __init__(self, grammar, seed=None):
