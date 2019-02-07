@@ -49,7 +49,7 @@ class Tree_Builder():
 
 
 
-    def generate_tree(self,  starting_symbol):
+    def generate_tree(self, starting_symbol):
 
         self.production_constraints = self.grammar.production_constraints
         return self._build_tree(starting_symbol)

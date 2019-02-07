@@ -49,20 +49,17 @@ def generateTreeNoParameter():
 @app.route("/<int:seed>")
 def generateTree(seed):
 
-    g = Grammar(grammar_path="config/rules/grammar.txt", seed=seed)
+    g = Grammar(
+        grammar_path="config/rules/grammar.txt",
+        # constraints_path="config/rules/production_constraints.yml",
+        seed=seed)
     symbols_rules = Symbols_Rules(symbols_configuration_folder="config/symbols")
     parameters_generator = Parameters_Generator("config/parameters", symbols_rules, g.tree_builder.get_seed())
 
 
-    c1 = Production_Constraint("Img", symbol="Sc", index=[0, 1, 0])
-    tb = Tree_Builder(seed=seed)
 
 
-    # add production constraints to grammar
-    # g.add_production_constraint(c1)
-
-
-    tree = tb.generate_tree(g, "T")
+    tree = g.tree_builder.generate_tree("T")
     tree = parameters_generator.apply_parameters(tree)
 
     tpl = generateTemplate(tree)
