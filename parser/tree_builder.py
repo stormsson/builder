@@ -4,7 +4,6 @@
 from random import randint
 import random
 import sys
-import string
 
 
 from anytree import Node
@@ -26,7 +25,7 @@ class Tree_Builder():
         else:
             substrings =""
 
-        str = string.replace(str, "#", substrings)
+        str = str.replace( "#", substrings)
         return str
 
     def __init__(self, seed=None):

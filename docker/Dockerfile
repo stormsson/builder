@@ -11,7 +11,13 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-COPY visual-requirements.txt /requirements.txt
+# compose all requirements and install
+COPY *requirements.txt /
+
+RUN for f in /*requirements.txt; do (cat "${f}"; echo) >> tmp.txt; done
+RUN cat tmp.txt
+RUN rm /*requirements.txt
+RUN mv /tmp.txt /requirements.txt
 
 RUN pip install -r /requirements.txt
 
